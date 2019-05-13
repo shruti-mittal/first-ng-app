@@ -7,18 +7,18 @@ import {Component, OnInit} from '@angular/core';
       Hi {{user.toUpperCase() + '!'}} at {{getSiteUrl()}}
     </div>
     <p>
-      <input [id]="bindID" class="is-guest" bind-disabled="!isDisabledProperty" type="text" value="username">
-      <input id="{{bindID}}" class="bold-admin" [class]="userType" [disabled]="isDisabledProperty" type="button" value="Ok">
+      <input [id]="bindID" class="is-guest" bind-disabled="isDisabledProperty" type="text" value="username">
+      <input (click)="getUA()" id="{{bindID}}" class="bold-admin" [class]="userType" [disabled]="!isDisabledProperty" type="button" value="Ok">
     </p>
     <p [class.bold-admin]="!hasAdminRights">
       'demo' as sub-component (with inline template) works!
     </p>
     <div [ngStyle]="featuresBox">
       <p [style.color]="'orange'">
-        Implemented : [Modules, Components, Interpolation, Property binding, Class binding] till now.
+        Implemented : [Modules, Components, Interpolation, Property binding, Class binding, Style binding] till now.
       </p>
       <p [style.color]="currentFeature ? currentFeatureColor : 'orange'">
-        Knowing : [Style binding] currently.
+        Knowing : [Event binding] currently.
       </p>
     </div>
   `,
@@ -60,6 +60,9 @@ export class DemoComponent implements OnInit {
     fontStyle: "normal"
   };    // object to apply Multiple Styles, Use : ngStyle Directive
 
+  // Event Binding : to respond to/capture user events, we need data flow in other direction as well (from template/view to component-class)
+
+
   constructor() {
   }
 
@@ -68,6 +71,10 @@ export class DemoComponent implements OnInit {
 
   getSiteUrl() {
     return window.location.href;
+  }
+
+  getUA() {
+    alert('UA: ' + navigator.userAgent);
   }
 
 }
