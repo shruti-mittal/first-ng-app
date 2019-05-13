@@ -6,13 +6,21 @@ import {Component, OnInit} from '@angular/core';
     <div [ngClass]="greetClasses">
       Hi {{user.toUpperCase() + '!'}} at {{getSiteUrl()}}
     </div>
-    <div>
+    <p>
       <input [id]="bindID" class="is-guest" bind-disabled="!isDisabledProperty" type="text" value="username">
       <input id="{{bindID}}" class="bold-admin" [class]="userType" [disabled]="isDisabledProperty" type="button" value="Ok">
-    </div>
+    </p>
     <p [class.bold-admin]="!hasAdminRights">
       'demo' as sub-component (with inline template) works!
     </p>
+    <div [ngStyle]="featuresBox">
+      <p [style.color]="'orange'">
+        Implemented : [Modules, Components, Interpolation, Property binding, Class binding] till now.
+      </p>
+      <p [style.color]="currentFeature ? currentFeatureColor : 'orange'">
+        Knowing : [Style binding] currently.
+      </p>
+    </div>
   `,
   styles: [`
     p {
@@ -43,7 +51,14 @@ export class DemoComponent implements OnInit {
     "is-admin": this.hasAdminRights,
     "is-guest": !this.hasAdminRights,
     "bold-admin": this.hasAdminRights
-  };   // object to conditionally apply multiple classes, Use : ngClass Directive
+  };   // object to conditionally apply Multiple Classes, Use : ngClass Directive
+
+  public currentFeature = true;   // [Style Binding] : apply inline styles to html elements   // conditionally assign value to css property
+  public currentFeatureColor = 'indigo';    // bound this property to 'color' property style. now we can change this component class property to be any color based on user interactions or state of the application.
+  public featuresBox = {
+    fontFamily: "cursive",
+    fontStyle: "normal"
+  };    // object to apply Multiple Styles, Use : ngStyle Directive
 
   constructor() {
   }
