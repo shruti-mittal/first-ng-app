@@ -25,8 +25,8 @@ import {Component, OnInit} from '@angular/core';
       </p>
     </div>
     <div>
-      <input type="text" placeholder="Email for our newsletter">
-      <button (click)="user = 'Editor'; hasAdminRights = true;">Subscribe</button>
+      <input #subsEmail type="text" placeholder="Email for our newsletter">
+      <button (click)="user = 'Editor'; hasAdminRights = true; confirmSubscription(subsEmail.value)">Subscribe</button>
     </div>
   `,
   styles: [`
@@ -90,6 +90,11 @@ export class DemoComponent implements OnInit {
 
     console.log('Event is - ', event);    //$event - (optional event handler parameter) - special variable for angular - gives all info about dom event that was raised.
     alert('This User Agent : ' + navigator.userAgent);
+  }
+
+  // #TemplateReferenceVariables : to easily access dom elements and their properties (use case - when there is user interaction & need data to flow from view to class)
+  confirmSubscription(value) {    //#subsEmail - a reference variable to refer to an html <input> element and all of its dom properties.
+    alert('Sure to subscribe for email: '+value+'?');
   }
 
 }
