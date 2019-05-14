@@ -6,13 +6,15 @@ import {Component, OnInit} from '@angular/core';
     <div [ngClass]="greetClasses">
       Hi {{user.toUpperCase() + '!'}} at {{getSiteUrl()}}
     </div>
+    
     <p>
       <input [id]="bindID" class="is-guest" bind-disabled="isDisabledProperty"
-             type="text" value="username">
+             type="text" value={{userName}}>
       <input (click)="getUA($event)" id="{{bindID}}" class="bold-admin" [class]="userType"
              [disabled]="!isDisabledProperty"
              type="button" value="Ok">
     </p>
+    
     <p [class.bold-admin]="!hasAdminRights">
       'demo' as sub-component (with inline template) works!
     </p>
@@ -24,9 +26,16 @@ import {Component, OnInit} from '@angular/core';
         Knowing : [Event binding] currently.
       </p>
     </div>
+    
     <div>
       <input #subsEmail type="text" placeholder="Email for our newsletter">
       <button (click)="user = 'Editor'; hasAdminRights = true; confirmSubscription(subsEmail.value)">Subscribe</button>
+    </div>
+    
+    <p></p>
+    <div class="two-way-binding">
+      Change your name:
+      <input [(ngModel)]="userName" type="text">
     </div>
   `,
   styles: [`
@@ -94,7 +103,10 @@ export class DemoComponent implements OnInit {
 
   // #TemplateReferenceVariables : to easily access dom elements and their properties (use case - when there is user interaction & need data to flow from view to class)
   confirmSubscription(value) {    //#subsEmail - a reference variable to refer to an html <input> element and all of its dom properties.
-    alert('Sure to subscribe for email: '+value+'?');
+    alert('Sure to subscribe for email: ' + value + '?');
   }
+
+  // [(Two Way Binding)] : (two way data flow) - a view and a model should always be in sync (otherwise, the data might not be consistent).
+  public userName = 'username';   // whenever user updates input field, value automatically goes to the class property (model) and from the class property (or, when there is update in property value), the value flows back to the template and is reflected using interpolation.
 
 }
