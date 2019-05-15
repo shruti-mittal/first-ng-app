@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-first-ng-app';
+  title = 'Perform Calcs.';
+
+  public expression: any = '';
+  public result;
+
+  evaluate() {
+    console.log('exp. is becoming=', this.expression);
+    this.result = eval(this.expression);
+  }
+
 }
