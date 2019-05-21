@@ -1,20 +1,67 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <h2>
+    {{ title }}!
+  </h2>
+  <img width="50" alt="Angular Logo"
+       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<div class="todo-app">
+
+  <div class="todo-form">
+
+    <div *ngIf="message" class="message">Alert! {{message}}</div>
+
+    <label id="name">Task name
+      <input (input)="todo.taskName = $event.target.value" [value]="todo.taskName" type="text" placeholder="Task Name"
+             required>
+    </label>
+    <label id="date">
+      <input (input)="todo.taskCompletedBy = $event.target.value" [value]="todo.taskCompletedBy" type="date" required>
+    </label>
+    <br/>
+    <label id="description" *ngIf="todo.taskType=='task'">Description
+      <textarea (input)="todo.taskDescription = $event.target.value" placeholder="Description"></textarea>
+    </label>
+    <br/>
+    <label id="types">
+      <select (change)="todo.taskType=$event.target.value; todo.taskDescription='';" [value]="todo.taskType" required>
+        <option value="">Types</option>
+        <option value="task">Task</option>
+        <option value="todo">Todo</option>
+        <option value="item">Item</option>
+      </select>
+    </label>
+    <button name="add" (click)="submitTask()">Add</button>
+    <button name="reset" (click)="initialTodoForm()">Reset</button>
+
+  </div>
+
+  <br/><hr><hr><br/>
+
+  <div class="todo-list">
+    <div *ngFor="let todo of taskList; index as i">
+      <div class="todo todo-{{i+1}}">
+
+        <div class="type" [style.textDecoration]="todo.completed ? 'line-through' : 'underline'">
+          Type: {{todo.taskType}}</div>
+        <div class="name" [class.completed]="todo.completed">
+          Task name: {{todo.taskName}}</div>
+        <br/>
+        <div *ngIf="todo.taskDescription" class="description" [class.completed]="todo.completed">
+          Description: {{todo.taskDescription}}</div>
+        <div class="completed-by" [class.completed]="todo.completed">
+          Completed By: {{todo.taskCompletedBy}}</div>
+        <br/>
+        <button (click)="taskList.splice(i,1)">
+          Delete</button>
+        <button (click)="todo.completed=!todo.completed">
+          Mark {{todo.completed ? 'Incomplete' : 'Complete'}}</button>
+
+      </div>
+      <hr>
+    </div>
+  </div>
+
+</div>
