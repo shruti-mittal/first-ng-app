@@ -1,0 +1,28 @@
+<div class="todo-form">
+
+  <div *ngIf="message" class="message">Alert! {{message}}</div>
+
+  <label id="name">Task name
+    <input (input)="todo.taskName = $event.target.value" [value]="todo.taskName" type="text" placeholder="Task Name"
+           required>
+  </label>
+  <label id="date">
+    <input (input)="todo.taskCompletedBy = $event.target.value" [value]="todo.taskCompletedBy" type="date" required>
+  </label>
+  <br/>
+  <label id="description" *ngIf="todo.taskType=='task'">Description
+    <textarea (input)="todo.taskDescription = $event.target.value" placeholder="Description"></textarea>
+  </label>
+  <br/>
+  <label id="types">
+    <select (change)="todo.taskType=$event.target.value; todo.taskDescription='';" [value]="todo.taskType" required>
+      <option value="">Types</option>
+      <option value="task">Task</option>
+      <option value="todo">Todo</option>
+      <option value="item">Item</option>
+    </select>
+  </label>
+  <button name="add" (click)="submitTask()">Add</button>
+  <button name="reset" (click)="initialTodoForm()">Reset</button>
+
+</div>

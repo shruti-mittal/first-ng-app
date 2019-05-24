@@ -1,0 +1,23 @@
+<div class="todo-list">
+  <div *ngFor="let todo of taskList; index as i">
+    <div class="todo todo-{{i+1}}">
+
+      <div class="type" [style.textDecoration]="todo.completed ? 'line-through' : 'underline'">
+        Type: {{todo.taskType}}</div>
+      <div class="name" [class.completed]="todo.completed">
+        Task name: {{todo.taskName}}</div>
+      <br/>
+      <div *ngIf="todo.taskDescription" class="description" [class.completed]="todo.completed">
+        Description: {{todo.taskDescription}}</div>
+      <div class="completed-by" [class.completed]="todo.completed">
+        Completed By: {{todo.taskCompletedBy}}</div>
+      <br/>
+      <button (click)="deleteTodo(i)">
+        Delete</button>
+      <button (click)="toggleTodo(todo)">
+        Mark {{todo.completed ? 'Incomplete' : 'Complete'}}</button>
+
+    </div>
+    <hr>
+  </div>
+</div>
